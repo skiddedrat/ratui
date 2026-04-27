@@ -1,4 +1,4 @@
---!strict
+--!stric
 -- RatUI v2 - original Mercury-inspired layout with improved HUD/keybind/watermark
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")

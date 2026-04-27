@@ -54,14 +54,14 @@ local function makeDraggable(handle, root)
 end
 
 RatUI.DefaultTheme = {
-    Bg = Color3.fromRGB(12, 14, 19),
-    Surface = Color3.fromRGB(18, 21, 29),
-    Surface2 = Color3.fromRGB(25, 29, 40),
-    Accent = Color3.fromRGB(123, 99, 255),
-    Text = Color3.fromRGB(240, 242, 248),
-    Sub = Color3.fromRGB(145, 152, 170),
-    Good = Color3.fromRGB(95, 231, 132),
-    Bad = Color3.fromRGB(251, 89, 108),
+    Bg = Color3.fromRGB(10, 13, 21),
+    Surface = Color3.fromRGB(19, 25, 37),
+    Surface2 = Color3.fromRGB(30, 37, 53),
+    Accent = Color3.fromRGB(96, 166, 255),
+    Text = Color3.fromRGB(240, 245, 255),
+    Sub = Color3.fromRGB(142, 158, 188),
+    Good = Color3.fromRGB(101, 236, 170),
+    Bad = Color3.fromRGB(252, 102, 122),
 }
 
 function RatUI.new(config)
@@ -98,25 +98,27 @@ function RatUI:CreateWindow(options)
     w.Blur = new("BlurEffect", { Name = "RatUI_Blur", Parent = Lighting, Enabled = options.Blur ~= false, Size = options.BlurSize or 10 })
 
     -- WATERMARK (improved)
-    w.Watermark = new("Frame", { Position = UDim2.fromOffset(16, 12), Size = UDim2.fromOffset(470, 42), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(10), uiStroke(w.Theme.Accent, 1, 0.25) })
+    w.Watermark = new("Frame", { AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,-16,0,12), Size = UDim2.fromOffset(490, 42), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(10), uiStroke(w.Theme.Accent, 1, 0.25) })
     new("Frame", { Size = UDim2.fromOffset(4, 42), BackgroundColor3 = w.Theme.Accent, BorderSizePixel = 0, Parent = w.Watermark }, { uiCorner(10) })
     w.WatermarkText = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,0), Size = UDim2.new(1,-16,1,0), Font = Enum.Font.GothamSemibold, Text = "", RichText = true, TextSize = 13, TextColor3 = w.Theme.Text, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.Watermark })
 
     -- MAIN WINDOW
-    w.Main = new("Frame", { AnchorPoint = Vector2.new(0.5,0.5), Position = UDim2.fromScale(0.5,0.53), Size = UDim2.fromOffset(920, 560), BackgroundColor3 = w.Theme.Bg, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(14), uiStroke(w.Theme.Accent, 1, 0.5) })
-    w.Top = new("Frame", { Size = UDim2.new(1,0,0,56), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(14) })
+    w.Main = new("Frame", { AnchorPoint = Vector2.new(0.5,0.5), Position = UDim2.fromScale(0.5,0.53), Size = UDim2.fromOffset(980, 600), BackgroundColor3 = w.Theme.Bg, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(14), uiStroke(w.Theme.Accent, 1, 0.5) })
+    w.Top = new("Frame", { Size = UDim2.new(1,0,0,52), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(14) })
     new("Frame", { Position = UDim2.new(0,0,1,-14), Size = UDim2.new(1,0,0,14), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Top })
-    w.TitleLabel = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(18,0), Size = UDim2.fromOffset(260,56), Font = Enum.Font.GothamBold, Text = w.Title, TextSize = 16, TextXAlignment = Enum.TextXAlignment.Left, TextColor3 = w.Theme.Text, Parent = w.Top })
-    w.SubLabel = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(140,0), Size = UDim2.fromOffset(420,56), Font = Enum.Font.Gotham, Text = w.Subtitle, TextSize = 13, TextXAlignment = Enum.TextXAlignment.Left, TextColor3 = w.Theme.Sub, Parent = w.Top })
-    w.ToggleInfo = new("TextLabel", { BackgroundTransparency = 1, AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,-16,0,0), Size = UDim2.fromOffset(230,56), Font = Enum.Font.GothamSemibold, Text = "Toggle: " .. self.ToggleKey.Name, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Right, TextColor3 = w.Theme.Sub, Parent = w.Top })
+    w.TitleLabel = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(18,0), Size = UDim2.fromOffset(260,52), Font = Enum.Font.GothamBold, Text = w.Title, TextSize = 16, TextXAlignment = Enum.TextXAlignment.Left, TextColor3 = w.Theme.Text, Parent = w.Top })
+    w.SubLabel = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(180,0), Size = UDim2.fromOffset(420,52), Font = Enum.Font.Gotham, Text = w.Subtitle, TextSize = 13, TextXAlignment = Enum.TextXAlignment.Left, TextColor3 = w.Theme.Sub, Parent = w.Top })
+    w.ToggleInfo = new("TextLabel", { BackgroundTransparency = 1, AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,-16,0,0), Size = UDim2.fromOffset(230,52), Font = Enum.Font.GothamSemibold, Text = "Toggle: " .. self.ToggleKey.Name, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Right, TextColor3 = w.Theme.Sub, Parent = w.Top })
+    new("Frame", { Position = UDim2.fromOffset(16,50), Size = UDim2.new(1,-32,0,1), BackgroundColor3 = w.Theme.Accent, BackgroundTransparency = 0.5, BorderSizePixel = 0, Parent = w.Top })
 
-    w.Side = new("Frame", { Position = UDim2.fromOffset(12,66), Size = UDim2.new(0,224,1,-78), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(12), uiStroke(w.Theme.Surface2, 1, 0.4) })
+    -- tabs moved to the right side
+    w.Side = new("Frame", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1,-12,0,62), Size = UDim2.new(0,198,1,-74), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(12), uiStroke(w.Theme.Surface2, 1, 0.4) })
     w.SideList = new("ScrollingFrame", { BackgroundTransparency = 1, BorderSizePixel = 0, Position = UDim2.fromOffset(8,8), Size = UDim2.new(1,-16,1,-16), ScrollBarThickness = 2, CanvasSize = UDim2.new(0,0,0,0), AutomaticCanvasSize = Enum.AutomaticSize.Y, Parent = w.Side }, { uiList(6) })
 
-    w.Body = new("Frame", { Position = UDim2.fromOffset(246,66), Size = UDim2.new(1,-258,1,-78), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(12), uiStroke(w.Theme.Surface2, 1, 0.4) })
+    w.Body = new("Frame", { Position = UDim2.fromOffset(12,62), Size = UDim2.new(1,-222,1,-74), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(12), uiStroke(w.Theme.Surface2, 1, 0.4) })
 
     -- TARGET HUD (improved)
-    w.Target = new("Frame", { AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,-16,0,62), Size = UDim2.fromOffset(360, 148), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(11), uiStroke(w.Theme.Accent, 1, 0.3) })
+    w.Target = new("Frame", { Position = UDim2.fromOffset(16,62), Size = UDim2.fromOffset(360, 148), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(11), uiStroke(w.Theme.Accent, 1, 0.3) })
     new("TextLabel", { Name = "Header", BackgroundTransparency = 1, Position = UDim2.fromOffset(14,8), Size = UDim2.new(1,-28,0,18), Font = Enum.Font.GothamSemibold, Text = "TARGET HUD", TextSize = 11, TextColor3 = w.Theme.Sub, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.Target })
     w.TargetName = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(14,24), Size = UDim2.new(1,-28,0,24), Font = Enum.Font.GothamBold, Text = "No target", TextSize = 16, TextColor3 = w.Theme.Text, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.Target })
     w.TargetDistance = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(14,47), Size = UDim2.new(1,-28,0,18), Font = Enum.Font.Gotham, Text = "Distance: --", TextSize = 12, TextColor3 = w.Theme.Sub, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.Target })
@@ -124,8 +126,14 @@ function RatUI:CreateWindow(options)
     w.TargetHealthFill = new("Frame", { Size = UDim2.fromScale(0,1), BackgroundColor3 = w.Theme.Good, BorderSizePixel = 0, Parent = w.TargetHealthBack }, { uiCorner(9) })
     w.TargetHealthText = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(14,98), Size = UDim2.new(1,-28,0,18), Font = Enum.Font.GothamSemibold, Text = "Health: --", TextSize = 12, TextColor3 = w.Theme.Text, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.Target })
 
+    -- custom extra: tiny session panel
+    w.SessionHud = new("Frame", { Position = UDim2.fromOffset(16,220), Size = UDim2.fromOffset(240, 74), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(11), uiStroke(w.Theme.Accent, 1, 0.35) })
+    new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,8), Size = UDim2.new(1,-24,0,16), Font = Enum.Font.GothamSemibold, Text = "Session Pulse", TextSize = 12, TextColor3 = w.Theme.Sub, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.SessionHud })
+    w.SessionText = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,26), Size = UDim2.new(1,-24,0,20), Font = Enum.Font.GothamBold, Text = "Players: --", TextSize = 14, TextColor3 = w.Theme.Text, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.SessionHud })
+    w.SessionClock = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,46), Size = UDim2.new(1,-24,0,18), Font = Enum.Font.Gotham, Text = "Clock: --", TextSize = 12, TextColor3 = w.Theme.Sub, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.SessionHud })
+
     -- KEYBIND LIST (improved)
-    w.KeybindHud = new("Frame", { AnchorPoint = Vector2.new(0,1), Position = UDim2.new(0,16,1,-16), Size = UDim2.fromOffset(340, 238), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(11), uiStroke(w.Theme.Accent, 1, 0.3) })
+    w.KeybindHud = new("Frame", { AnchorPoint = Vector2.new(1,1), Position = UDim2.new(1,-16,1,-16), Size = UDim2.fromOffset(340, 238), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(11), uiStroke(w.Theme.Accent, 1, 0.3) })
     new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,8), Size = UDim2.new(1,-24,0,22), Font = Enum.Font.GothamBold, Text = "Keybind List", TextSize = 14, TextColor3 = w.Theme.Text, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.KeybindHud })
     new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,26), Size = UDim2.new(1,-24,0,16), Font = Enum.Font.Gotham, Text = "Mode / key / live state", TextSize = 11, TextColor3 = w.Theme.Sub, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.KeybindHud })
     w.KeybindList = new("ScrollingFrame", { BackgroundTransparency = 1, BorderSizePixel = 0, Position = UDim2.fromOffset(12,46), Size = UDim2.new(1,-24,1,-56), ScrollBarThickness = 2, CanvasSize = UDim2.new(0,0,0,0), AutomaticCanvasSize = Enum.AutomaticSize.Y, Parent = w.KeybindHud }, { uiList(5) })
@@ -197,6 +205,8 @@ function Window:_connect()
             pcall(function() ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()) end)
             local accent = self.Theme.Accent
             self.WatermarkText.Text = string.format('<font color="rgb(%d,%d,%d)">%s</font> • FPS %d • Ping %dms • Uptime %s', math.floor(accent.R*255), math.floor(accent.G*255), math.floor(accent.B*255), ui.ScriptName, ui._fps, ping, uptime)
+            self.SessionText.Text = string.format("Players: %d", #Players:GetPlayers())
+            self.SessionClock.Text = string.format("Clock: %s", os.date("!%H:%M:%S UTC"))
         end
     end))
 
@@ -218,7 +228,18 @@ function Window:CreateTab(name, icon)
     tab._w = self
     tab.Name = name
 
-    tab.Button = new("TextButton", { AutoButtonColor = false, Size = UDim2.new(1,0,0,36), BackgroundColor3 = self.Theme.Surface2, BorderSizePixel = 0, Text = (icon or "•") .. "  " .. name, Font = Enum.Font.GothamSemibold, TextSize = 13, TextXAlignment = Enum.TextXAlignment.Left, TextColor3 = self.Theme.Text, Parent = self.SideList }, { uiCorner(8), uiPad(10) })
+    tab.Button = new("TextButton", {
+        AutoButtonColor = false,
+        Size = UDim2.new(1,0,0,38),
+        BackgroundColor3 = self.Theme.Surface2,
+        BorderSizePixel = 0,
+        Text = string.format("%s  %s", icon or "◈", string.upper(name)),
+        Font = Enum.Font.GothamBold,
+        TextSize = 12,
+        TextXAlignment = Enum.TextXAlignment.Center,
+        TextColor3 = self.Theme.Text,
+        Parent = self.SideList
+    }, { uiCorner(10), uiStroke(self.Theme.Accent, 1, 0.8) })
 
     tab.Page = new("ScrollingFrame", { BackgroundTransparency = 1, BorderSizePixel = 0, Position = UDim2.fromOffset(10,10), Size = UDim2.new(1,-20,1,-20), ScrollBarThickness = 3, CanvasSize = UDim2.new(0,0,0,0), AutomaticCanvasSize = Enum.AutomaticSize.Y, Visible = false, Parent = self.Body }, { uiList(8) })
 
@@ -280,6 +301,41 @@ function Tab:AddSlider(text, min, max, defaultValue, callback)
     UserInputService.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = false end end)
     redraw()
     return { Get = function() return value end, Set = function(_, v) value = math.clamp(v, min, max) redraw() end }
+end
+
+function Tab:AddDropdown(text, options, defaultOption, callback)
+    options = options or {}
+    local selected = defaultOption or options[1] or "None"
+    local open = false
+    local c = self:_card(96)
+    new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(10,6), Size = UDim2.new(1,-20,0,20), Text = text, Font = Enum.Font.GothamSemibold, TextSize = 13, TextXAlignment = Enum.TextXAlignment.Left, TextColor3 = self._w.Theme.Text, Parent = c })
+    local main = new("TextButton", { AutoButtonColor = false, Position = UDim2.fromOffset(10,32), Size = UDim2.new(1,-20,0,30), BackgroundColor3 = self._w.Theme.Surface, BorderSizePixel = 0, Text = tostring(selected), Font = Enum.Font.GothamBold, TextSize = 12, TextColor3 = self._w.Theme.Text, Parent = c }, { uiCorner(8) })
+    local list = new("Frame", { Visible = false, Position = UDim2.fromOffset(10,66), Size = UDim2.new(1,-20,0,24 * #options), BackgroundColor3 = self._w.Theme.Surface, BorderSizePixel = 0, Parent = c }, { uiCorner(8), uiList(4), uiPad(4) })
+    local function set(v)
+        selected = v
+        main.Text = tostring(v)
+        if callback then callback(v) end
+    end
+    for _, option in ipairs(options) do
+        local row = new("TextButton", { AutoButtonColor = false, Size = UDim2.new(1,0,0,20), BackgroundColor3 = self._w.Theme.Surface2, BorderSizePixel = 0, Text = tostring(option), Font = Enum.Font.Gotham, TextSize = 12, TextColor3 = self._w.Theme.Text, Parent = list }, { uiCorner(6) })
+        row.MouseButton1Click:Connect(function() open = false list.Visible = false set(option) end)
+    end
+    main.MouseButton1Click:Connect(function()
+        open = not open
+        list.Visible = open
+    end)
+    set(selected)
+    return { Get = function() return selected end, Set = function(_, v) set(v) end }
+end
+
+function Tab:AddTextbox(text, defaultValue, callback)
+    local c = self:_card(58)
+    new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(10,0), Size = UDim2.new(0.45,0,1,0), Text = text, Font = Enum.Font.GothamSemibold, TextSize = 13, TextXAlignment = Enum.TextXAlignment.Left, TextColor3 = self._w.Theme.Text, Parent = c })
+    local box = new("TextBox", { Position = UDim2.new(0.46,0,0.5,-15), Size = UDim2.new(0.54,-10,0,30), BackgroundColor3 = self._w.Theme.Surface, BorderSizePixel = 0, Text = tostring(defaultValue or ""), PlaceholderText = "Type...", ClearTextOnFocus = false, Font = Enum.Font.Gotham, TextSize = 12, TextColor3 = self._w.Theme.Text, Parent = c }, { uiCorner(7) })
+    box.FocusLost:Connect(function(enterPressed)
+        if callback then callback(box.Text, enterPressed) end
+    end)
+    return box
 end
 
 function Tab:AddKeybind(text, key, mode, callback)
@@ -354,6 +410,7 @@ function Window:SetTheme(theme)
     self.Body.BackgroundColor3 = theme.Surface
     self.Watermark.BackgroundColor3 = theme.Surface
     self.Target.BackgroundColor3 = theme.Surface
+    self.SessionHud.BackgroundColor3 = theme.Surface
     self.KeybindHud.BackgroundColor3 = theme.Surface
 end
 

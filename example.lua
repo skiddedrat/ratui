@@ -1,4 +1,28 @@
+-- Variables 
+    local ServiceCache = {};
+    getgenv().Services = setmetatable({}, {__index = function(Self, Index)
+        if not ServiceCache[Index] then
+            ServiceCache[Index] = cloneref(game:GetService(Index));
+        end;
 
+        return ServiceCache[Index];
+    end});
+
+    local Keys = {
+        [Enum.KeyCode.LeftShift] = "LS",
+        [Enum.KeyCode.RightShift] = "RS",
+        [Enum.KeyCode.LeftControl] = "LC",
+        [Enum.KeyCode.RightControl] = "RC",
+        [Enum.KeyCode.Insert] = "INS",
+        [Enum.KeyCode.Backspace] = "BS",
+        [Enum.KeyCode.Return] = "Ent",
+        [Enum.KeyCode.LeftAlt] = "LA",
+        [Enum.KeyCode.RightAlt] = "RA",
+        [Enum.KeyCode.CapsLock] = "CAPS",
+        [Enum.KeyCode.One] = "1",
+        [Enum.KeyCode.Two] = "2",
+        [Enum.KeyCode.Three] = "3",
+        [Enum.KeyCode.Four] = "4",
         [Enum.KeyCode.Five] = "5",
         [Enum.KeyCode.Six] = "6",
         [Enum.KeyCode.Seven] = "7",
@@ -3956,4 +3980,3 @@ task.wait(Library.TweeningSpeed)
 Library:InitConfigs(Window)
 Library:AutoLoad()
 Window.SetVisible(true)
- 

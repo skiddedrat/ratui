@@ -110,10 +110,11 @@ function RatUI:CreateWindow(options)
     w.SubLabel = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(140,0), Size = UDim2.fromOffset(420,56), Font = Enum.Font.Gotham, Text = w.Subtitle, TextSize = 13, TextXAlignment = Enum.TextXAlignment.Left, TextColor3 = w.Theme.Sub, Parent = w.Top })
     w.ToggleInfo = new("TextLabel", { BackgroundTransparency = 1, AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,-16,0,0), Size = UDim2.fromOffset(230,56), Font = Enum.Font.GothamSemibold, Text = "Toggle: " .. self.ToggleKey.Name, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Right, TextColor3 = w.Theme.Sub, Parent = w.Top })
 
-    w.Side = new("Frame", { Position = UDim2.fromOffset(12,66), Size = UDim2.new(0,224,1,-78), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(12), uiStroke(w.Theme.Surface2, 1, 0.4) })
+    -- tabs moved to the right side
+    w.Side = new("Frame", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1,-12,0,66), Size = UDim2.new(0,224,1,-78), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(12), uiStroke(w.Theme.Surface2, 1, 0.4) })
     w.SideList = new("ScrollingFrame", { BackgroundTransparency = 1, BorderSizePixel = 0, Position = UDim2.fromOffset(8,8), Size = UDim2.new(1,-16,1,-16), ScrollBarThickness = 2, CanvasSize = UDim2.new(0,0,0,0), AutomaticCanvasSize = Enum.AutomaticSize.Y, Parent = w.Side }, { uiList(6) })
 
-    w.Body = new("Frame", { Position = UDim2.fromOffset(246,66), Size = UDim2.new(1,-258,1,-78), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(12), uiStroke(w.Theme.Surface2, 1, 0.4) })
+    w.Body = new("Frame", { Position = UDim2.fromOffset(12,66), Size = UDim2.new(1,-248,1,-78), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Main }, { uiCorner(12), uiStroke(w.Theme.Surface2, 1, 0.4) })
 
     -- TARGET HUD (improved)
     w.Target = new("Frame", { AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,-16,0,62), Size = UDim2.fromOffset(360, 148), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(11), uiStroke(w.Theme.Accent, 1, 0.3) })
@@ -123,6 +124,12 @@ function RatUI:CreateWindow(options)
     w.TargetHealthBack = new("Frame", { Position = UDim2.fromOffset(14,74), Size = UDim2.new(1,-28,0,20), BackgroundColor3 = w.Theme.Surface2, BorderSizePixel = 0, Parent = w.Target }, { uiCorner(9) })
     w.TargetHealthFill = new("Frame", { Size = UDim2.fromScale(0,1), BackgroundColor3 = w.Theme.Good, BorderSizePixel = 0, Parent = w.TargetHealthBack }, { uiCorner(9) })
     w.TargetHealthText = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(14,98), Size = UDim2.new(1,-28,0,18), Font = Enum.Font.GothamSemibold, Text = "Health: --", TextSize = 12, TextColor3 = w.Theme.Text, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.Target })
+
+    -- custom extra: tiny session panel
+    w.SessionHud = new("Frame", { AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,-16,0,220), Size = UDim2.fromOffset(240, 74), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(11), uiStroke(w.Theme.Accent, 1, 0.35) })
+    new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,8), Size = UDim2.new(1,-24,0,16), Font = Enum.Font.GothamSemibold, Text = "Session Pulse", TextSize = 12, TextColor3 = w.Theme.Sub, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.SessionHud })
+    w.SessionText = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,26), Size = UDim2.new(1,-24,0,20), Font = Enum.Font.GothamBold, Text = "Players: --", TextSize = 14, TextColor3 = w.Theme.Text, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.SessionHud })
+    w.SessionClock = new("TextLabel", { BackgroundTransparency = 1, Position = UDim2.fromOffset(12,46), Size = UDim2.new(1,-24,0,18), Font = Enum.Font.Gotham, Text = "Clock: --", TextSize = 12, TextColor3 = w.Theme.Sub, TextXAlignment = Enum.TextXAlignment.Left, Parent = w.SessionHud })
 
     -- KEYBIND LIST (improved)
     w.KeybindHud = new("Frame", { AnchorPoint = Vector2.new(0,1), Position = UDim2.new(0,16,1,-16), Size = UDim2.fromOffset(340, 238), BackgroundColor3 = w.Theme.Surface, BorderSizePixel = 0, Parent = w.Root }, { uiCorner(11), uiStroke(w.Theme.Accent, 1, 0.3) })
@@ -197,6 +204,8 @@ function Window:_connect()
             pcall(function() ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()) end)
             local accent = self.Theme.Accent
             self.WatermarkText.Text = string.format('<font color="rgb(%d,%d,%d)">%s</font> • FPS %d • Ping %dms • Uptime %s', math.floor(accent.R*255), math.floor(accent.G*255), math.floor(accent.B*255), ui.ScriptName, ui._fps, ping, uptime)
+            self.SessionText.Text = string.format("Players: %d", #Players:GetPlayers())
+            self.SessionClock.Text = string.format("Clock: %s", os.date("!%H:%M:%S UTC"))
         end
     end))
 
@@ -354,6 +363,7 @@ function Window:SetTheme(theme)
     self.Body.BackgroundColor3 = theme.Surface
     self.Watermark.BackgroundColor3 = theme.Surface
     self.Target.BackgroundColor3 = theme.Surface
+    self.SessionHud.BackgroundColor3 = theme.Surface
     self.KeybindHud.BackgroundColor3 = theme.Surface
 end
 
